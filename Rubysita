@@ -1,0 +1,97 @@
+package com.Rubysita;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.permission.FsPermission;
+
+import java.util.Scanner;
+public class Rubysita {
+	
+	Private static String Folder = " ";
+	Private static String ArchivoNuevo =" ";
+	private static String Contenido = " ";
+	private static String BorrarArchivo =" ";
+	private static String usuario =" ";
+	private static String ruta ="";
+	private static int op1 = 0;
+	private static int op2 = 0;
+	private static int op3 = 0;
+	
+	// Código de ejecución
+	public static void main (String[] args ) {
+		Scanner sc = new Scanner(System.in);
+		do {
+			System.out.println ("¿Qué desea realizar, 1: Archivo nuevo, 2: Eliminar archivo ");
+			
+			Switch(op1) {
+				case 1:
+					Scanner info= new Scanner (System.in);
+					try {
+						//try sirve para buscar errores
+						FileSystem fs = FileSystem.get (conf);
+						String home = fs.getHomeDirectory().toString();
+							System.out.println ("Nombre del nuevo Folder");
+							Folder = info.nextLine();
+							
+							If (!fs.exists(new Path (home + "/" + Folder ))){
+							//fs.exists sirve para comprobar la existencia de un archivo antes de ser llamado	
+								fs.mkdirs (new Path(home + "/" + Folder));
+							}
+							System.out.println ("Nombre del Archivo Nuevo");
+							ArchivoNuevo = info.nextLine();
+							Path ruta = new Path (home + "/" + "/" + Folder + "/" + ArchivoNuevo);
+							FSDataOutPutStream = null;
+							
+							System.out.println ("Ingresa Contenido");
+							Contenido = info.nextLine();
+							
+							If (!fs.exists(ruta)){
+								outputStream = fs.create(ruta);
+								outputStream.writeBytes(Contenido);
+								outputStream.close();
+								
+								System.out.println("El nuevo archivo fue creado en la ruta: " + ruta);
+								System.out.println("¿Desea guardar los cambios? , 1:si, 2: no");
+								op2 = info.nextInt();
+								if (op2 == 1) {
+									Scanner sc1= new Scanner (System.in);
+									System.out.println ("Nombre del usuario" );
+									usuario = sc1.nextLine();
+									fs.setOwner (ruta, usuario, null);
+									//comando para usuarios
+								}
+								System.out.println("Permisos", 1: si, 2: no);
+								opcion1 =info.nextInt();
+								If (opcion1 == 1){
+									Scanner sc2 = new Scanner (System.in);
+									System.out.println("Elija el permiso que desea";)
+									System.out.println ("1 = Ejecutar, 2 = Lectura, 3 = Escritura, 4 = Ejecutar y escritura, 5 = Lectura y escritura, 6 = Ejecutar y lectura, 7 = todos, 8 = Ninguno" ");
+									option2 = sc2.nextInt();
+									System.out.println ("" + option2)
+									}
+								System.out.println("¿Qué archivo desea borrar?");
+								BorrarArchivo = info1.nextLine();
+								If (fs.exists(new Path (home + "/" + ruta + "/" + BorrarArchivo)));
+									fs.delete (new Path ( home + "/" + ruta + "/" + BorrarArchivo));
+									System.out.println(" El archivo ha sido borrado " + new Path (home + "/" + ruta + "/" + BorrarArchivo));
+									
+									
+								}
+								
+							}
+								
+								
+					}
+			}
+		}
+	}
+}
+
